@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t calvinisa/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+
+script:
+  - docker run calvinisa/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t calvinisa/multi=client ./client
+  - docker build -t calvinisa/multi-nginx ./nginx
+  - docker build -t calvinisa/multi-server ./server
+  - docker build -t calvinisa/multi-worker ./worker
+  # Log in to the docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # take those images and push them to docker hub
+  - docker push calvinisa/multi=client
+  - docker push calvinisa/multi-nginx
+  - docker push calvinisa/multi-server
+  - docker push calvinisa/multi-worker
+
+
