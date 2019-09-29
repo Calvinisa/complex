@@ -16,7 +16,7 @@ after_success:
   # Log in to the docker cli
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # take those images and push them to docker hub
-  - docker push calvinisa/multi=client
+  - docker push calvinisa/multi-client
   - docker push calvinisa/multi-nginx
   - docker push calvinisa/multi-server
   - docker push calvinisa/multi-worker
