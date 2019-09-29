@@ -9,7 +9,7 @@ script:
   - docker run -e CI=true calvinisa/react-test npm test
 
 after_success:
-  - docker build -t calvinisa/multi=client ./client
+  - docker build -t calvinisa/multi-client ./client
   - docker build -t calvinisa/multi-nginx ./nginx
   - docker build -t calvinisa/multi-server ./server
   - docker build -t calvinisa/multi-worker ./worker
