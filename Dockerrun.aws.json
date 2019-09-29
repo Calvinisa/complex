@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "calvinisa/multi-client",
+            "hostname": "client",
+            "essential": false            
+        },
+        {
+            "name": "server",
+            "image": "calvinisa/multi-server",
+            "hostname": "api",
+            "essential": false            
+        },
+        {
+            "name": "worker",
+            "image": "calvinisa/multi-worker",
+            "hostname": "worker",
+            "essential": false            
+        },
+        {
+            "name": "nginx",
+            "image": "calvinisa/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
